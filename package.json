@@ -1,13 +1,13 @@
 {
   "name": "Skybrud.Social.Steam",
-  "url": "https://gitlab.com/zdindustries/shared/Skybrud.Social.Twitch",
+  "url": "https://gitlab.com/zdindustries/shared/Skybrud.Social.Steam",
   "license": {
     "name": "MIT",
-    "url": "https://gitlab.com/zdindustries/shared/Skybrud.Social.Twitch/blob/master/LICENSE.md"
+    "url": "https://gitlab.com/zdindustries/shared/Skybrud.Social.Steam/blob/master/LICENSE.md"
   },
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-nuget": "~0.1.4",
-    "grunt-zip": "~0.17.0"
+    "grunt": "^0.4.5",
+    "grunt-nuget": "^0.1.7",
+    "grunt-zip": "^0.17.1"
   }
 }

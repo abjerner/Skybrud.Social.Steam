@@ -10,7 +10,7 @@
     <RootNamespace>Skybrud.Social.Steam</RootNamespace>
     <Version>1.0.0-beta001</Version>
     <Company>ZD Industries</Company>
-    <Product>Skybrud.Social.Steam</Product>
+    <Product>Skybrud.Social</Product>
     <Authors>Zoull Danusty</Authors>
     <Copyright>Copyright © 2018</Copyright>
     <Description>Authentication and service implementation for the Steam API.</Description>
