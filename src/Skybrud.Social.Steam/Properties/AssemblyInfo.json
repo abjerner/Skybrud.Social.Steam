@@ -1,0 +1,10 @@
+{
+  "title": "Skybrud.Social.Steam",
+  "description": "Authentication and service implementation for the Steam API.",
+  "company": "ZD Industries",
+  "product": "Skybrud.Social.Steam",
+  "copyright": "Copyright © 2018",
+  "version": "1.0.0.0",
+  "informationalVersion": "1.0.0-beta001",
+  "fileVersion": "0.0.170.1"
+}
