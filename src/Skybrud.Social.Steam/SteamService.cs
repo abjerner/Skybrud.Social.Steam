@@ -13,7 +13,7 @@ namespace Skybrud.Social.Steam {
         /// <summary>
         /// Gets a reference to the underlying client.
         /// </summary>
-        public SteamHttpClient Client { get; private set; }
+        public SteamHttpClient Client { get; }
 
         /// <summary>
         /// Gets a reference to the account recovery endpoint.
