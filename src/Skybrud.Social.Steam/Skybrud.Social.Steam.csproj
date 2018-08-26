@@ -1,4 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;netstandard2.0;net45;net46;net47</TargetFrameworks>
@@ -9,18 +11,18 @@
   <PropertyGroup>
     <RootNamespace>Skybrud.Social.Steam</RootNamespace>
     <Version>1.0.0-beta001</Version>
-    <Company>ZD Industries</Company>
+    <Company>Skybrud.dk a/s</Company>
     <Product>Skybrud.Social</Product>
-    <Authors>Zoull Danusty</Authors>
+    <Authors>Anders Bjerner</Authors>
     <Copyright>Copyright © 2018</Copyright>
     <Description>Authentication and service implementation for the Steam API.</Description>
-    <RepositoryUrl>https://gitlab.com/zdindustries/shared/Skybrud.Social.Steam</RepositoryUrl>
+    <RepositoryUrl>https://github.com/abjerner/Skybrud.Social.Steam</RepositoryUrl>
   </PropertyGroup>
   
   <PropertyGroup>
     <PackageTags>Steam, API, Skybrud, Social, OAuth, JSON</PackageTags>
-    <PackageLicenseUrl>https://gitlab.com/zdindustries/shared/Skybrud.Social.Steam/blob/master/LICENSE.md</PackageLicenseUrl>
-    <PackageProjectUrl>https://gitlab.com/zdindustries/shared/Skybrud.Social.Steam</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/abjerner/Skybrud.Social.Steam/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://social.skybrud.dk/steam/</PackageProjectUrl>
     <PackageIconUrl>http://www.skybrud.dk/img/5431sk/icon/favicon.ico</PackageIconUrl>
   </PropertyGroup>
 
@@ -43,13 +45,13 @@
   <PropertyGroup>
     <DocumentationFile>bin\Release\$(TargetFramework)\Skybrud.Social.Steam.xml</DocumentationFile>
   </PropertyGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(TargetFramework)|$(RunBuildTargets)'=='netstandard1.3|true'">
-    <Exec Command="&quot;$(SolutionDir)build\Skybrud.Social.PreBuildTool.exe&quot; /date=2018-01-26 /projectPath=&quot;$(ProjectPath)&quot;" />
+  
+  <Target Name="PreBuildEvent" BeforeTargets="DispatchToInnerBuilds" Condition="'$(RunBuildTargets)'=='true'">
+    <Exec Command="&quot;$(SolutionDir)build/Skybrud.Social.PreBuildTool.exe&quot; /date=2018-08-26 /projectPath=&quot;$(SolutionDir)Skybrud.Social.Steam\Skybrud.Social.Steam.csproj&quot;" />
   </Target>
 
-  <Target Name="PostBuild" BeforeTargets="PostBuildEvent" Condition="'$(TargetFramework)|$(RunBuildTargets)'=='netstandard1.3|true'">
-    <Exec Command="&quot;$(SolutionDir)build\UpdateAssemblyInfoJson.exe&quot; &quot;$(ProjectPath)&quot; &quot;$(TargetPath)&quot;" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="mkdir $(ProjectDir)bin\Dev\$(TargetFramework)&#xD;&#xA;xcopy $(ProjectDir)bin\$(ConfigurationName)\$(TargetFramework)\$(TargetName).* $(ProjectDir)bin\Dev\$(TargetFramework)\ /y&#xD;&#xA;&quot;$(ProjectDir)..\build\UpdateAssemblyInfoJson.exe&quot; &quot;$(ProjectPath)&quot; &quot;$(TargetPath)&quot;" />
   </Target>
 
 </Project>

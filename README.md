@@ -1,13 +1,6 @@
-Skybrud.Social.Steam
-========================
+# Skybrud.Social.Steam
 
 As an add-on for [Skybrud.Social](https://github.com/abjerner/Skybrud.Social), **Skybrud.Social.Steam** helps you with both authentication as well as raw and object-oriented communication with the Steam API.
-
-### Beta
-
-This package is currently in beta, which primarily means that it is still under development. This may lead to breaking changes between each beta release.
-
-If you're looking for a stable release, you can use the older [SteamOAuth](https://github.com/XeroMS/SteamOAuth/) instead, which adds support for the Steam API to Skybrud.Social.
 
 ### Installation
 
@@ -35,12 +28,8 @@ Grab a ZIP file of the latest release; unzip and move the files to the bin direc
 
 The [**releases page**][Releases] lists all releases, and each there will be some information for each release on the most significant changes.
 
-### Documentation
 
-You can find documentation and examples on how to use this package at the [**Skybrud.Social.Steam Wiki**][Documentation]. The package isn't yet fully documented, so feel free to [**create an issue**][Issues] if I've missed something.
-
-[Website]: http://zdindustries.com/projects/skybrud.social.steam/
-[Documentation]: https://gitlab.com/zdindustries/shared/Skybrud.Social.Steam/wikis/home
+[Website]: https://social.skybrud.dk/steam/
 [NuGetPackage]: https://www.nuget.org/packages/Skybrud.Social.Steam
-[Releases]: https://gitlab.com/zdindustries/shared/Skybrud.Social.Steam/tags
-[Issues]: https://gitlab.com/zdindustries/shared/Skybrud.Social.Steam/issues
+[Releases]: https://github.com/abjerner/Skybrud.Social.Steam/releases/latest
+[Issues]: https://www.nuget.org/packages/Skybrud.Social.Steam/
