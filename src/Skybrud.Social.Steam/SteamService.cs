@@ -127,7 +127,10 @@ namespace Skybrud.Social.Steam {
         /// <summary>
         /// Initializes a new instance with default options.
         /// </summary>
-        public SteamService() {
+        public SteamService() : this(null) { }
+
+        private SteamService(SteamHttpClient client) {
+            Client = client ?? new SteamHttpClient();
             AccountRecovery = new SteamAccountRecoveryServiceEndpoint(this);
             Apps = new SteamAppsEndpoint(this);
             Directory = new SteamDirectoryEndpoint(this);
@@ -162,7 +165,7 @@ namespace Skybrud.Social.Steam {
         /// <returns>The created instance of <see cref="SteamService"/>.</returns>
         public static SteamService CreateFromApiKey(string apiKey) {
             if (String.IsNullOrWhiteSpace(apiKey)) throw new ArgumentNullException(nameof(apiKey));
-            return new SteamService { Client = new SteamHttpClient(apiKey) };
+            return new SteamService(new SteamHttpClient(apiKey));
         }
 
         /// <summary>
@@ -172,10 +175,11 @@ namespace Skybrud.Social.Steam {
         /// <returns>The created instance of <see cref="SteamService"/>.</returns>
         public static SteamService CreateFromOAuthClient(SteamHttpClient client) {
             if (client == null) throw new ArgumentNullException(nameof(client));
-            return new SteamService { Client = client };
+            return new SteamService(client);
         }
 
         #endregion
 
     }
+
 }
