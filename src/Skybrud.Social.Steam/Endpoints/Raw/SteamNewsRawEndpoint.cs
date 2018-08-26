@@ -1,14 +1,15 @@
 ﻿using System;
+using Skybrud.Essentials.Time;
 using Skybrud.Social.Http;
+using Skybrud.Social.Steam.Models.News;
 using Skybrud.Social.Steam.Options.News;
 
-namespace Skybrud.Social.Steam.Endpoints.Raw
-{
+namespace Skybrud.Social.Steam.Endpoints.Raw {
+    
     /// <summary>
     /// Class representing the raw implementation of the Steam news endpoint.
     /// </summary>
-    public class SteamNewsRawEndpoint
-    {
+    public class SteamNewsRawEndpoint {
 
         #region Properties
 
@@ -21,59 +22,25 @@ namespace Skybrud.Social.Steam.Endpoints.Raw
 
         #region Constructors
 
-        internal SteamNewsRawEndpoint(SteamHttpClient client)
-        {
+        internal SteamNewsRawEndpoint(SteamHttpClient client) {
             Client = client;
         }
 
         #endregion
 
-        #region Methods
+        #region Member methods ethods
 
         /// <summary>
-        /// 
+        /// Gets a list of news items for the app (game) matching the specified <paramref name="appId"/>.
         /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="maxLength"></param>
-        /// <param name="endDate"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        public SocialHttpResponse GetNewsForAppv1(uint appId, uint? maxLength = null, uint? endDate = null, uint? count = null)
-        {
-            return GetNewsForAppv1(new SteamGetNewsForAppv1Options
-            {
-                AppId = appId,
-                MaxLength = maxLength,
-                EndDate = endDate,
-                Count = count
-            });
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        public SocialHttpResponse GetNewsForAppv1(SteamGetNewsForAppv1Options options)
-        {
-            // Some validation
-            if (options == null) throw new ArgumentNullException(nameof(options));
-            return Client.DoHttpGetRequest("/ISteamNews/GetNewsForApp/v1/", options);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="maxLength"></param>
-        /// <param name="endDate"></param>
-        /// <param name="count"></param>
-        /// <param name="feeds"></param>
-        /// <returns></returns>
-        public SocialHttpResponse GetNewsForAppv2(uint appId, uint? maxLength = null, uint? endDate = null, uint? count = null, string feeds = null)
-        {
-            return GetNewsForAppv2(new SteamGetNewsForAppv2Options
-            {
+        /// <param name="appId">The app ID.</param>
+        /// <param name="maxLength">The maximum length of the <see cref="SteamNewsItem.Contents"/> field.</param>
+        /// <param name="endDate">The end date.</param>
+        /// <param name="count">The maximum amount of news items to be returned.</param>
+        /// <param name="feeds">The name of the feeds from which news items should be returned. If not specified, news items of all feeds will be returned.</param>
+        /// <returns>An instance of <see cref="SocialHttpResponse"/> representing the raw response.</returns>
+        public SocialHttpResponse GetNewsForApp(uint appId, uint maxLength = 0, EssentialsDateTime endDate = null, uint count = 0, string[] feeds = null) {
+            return GetNewsForApp(new SteamGetNewsForAppOptions {
                 AppId = appId,
                 MaxLength = maxLength,
                 EndDate = endDate,
@@ -83,13 +50,11 @@ namespace Skybrud.Social.Steam.Endpoints.Raw
         }
 
         /// <summary>
-        /// 
+        /// Gets a list of news items for the app (game) matching the specified <paramref name="options"/>.
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        public SocialHttpResponse GetNewsForAppv2(SteamGetNewsForAppv2Options options)
-        {
-            // Some validation
+        /// <param name="options">The options for the request to the API.</param>
+        /// <returns>An instance of <see cref="SocialHttpResponse"/> representing the raw response.</returns>
+        public SocialHttpResponse GetNewsForApp(SteamGetNewsForAppOptions options) {
             if (options == null) throw new ArgumentNullException(nameof(options));
             return Client.DoHttpGetRequest("/ISteamNews/GetNewsForApp/v2/", options);
         }
@@ -97,4 +62,5 @@ namespace Skybrud.Social.Steam.Endpoints.Raw
         #endregion
 
     }
+
 }
