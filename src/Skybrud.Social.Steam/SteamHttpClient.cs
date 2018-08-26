@@ -2,31 +2,21 @@
 using Skybrud.Social.Http;
 using Skybrud.Social.Steam.Endpoints.Raw;
 
-namespace Skybrud.Social.Steam.OAuth
-{
+namespace Skybrud.Social.Steam {
+    
     /// <inheritdoc />
     /// <summary>
-    /// Class for handling the raw communication with the Steam api as well as any OAuth communication.
+    /// Class for handling the raw communication with the Steam API.
     /// </summary>
-    public class SteamOAuthClient : SocialHttpClient
-    {
+    public class SteamHttpClient : SocialHttpClient {
 
         #region Properties
 
-        #region OAuth
-
         /// <summary>
-        /// Gets or sets the client id of the app.
+        /// Gets or sets the API key..
         /// </summary>
-        public string ClientId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the access token.
-        /// </summary>
-        public string AccessToken { get; set; }
-
-        #endregion
-
+        public string ApiKey { get; set; }
+        
         #region Endpoints
 
         /// <summary>
@@ -141,10 +131,9 @@ namespace Skybrud.Social.Steam.OAuth
         #region Constructors
 
         /// <summary>
-        /// Initializes an OAuth client with empty information.
+        /// Initializes a new instance with default options.
         /// </summary>
-        public SteamOAuthClient()
-        {
+        public SteamHttpClient() {
             AccountRecovery = new SteamAccountRecoveryServiceRawEndpoint(this);
             Apps = new SteamAppsRawEndpoint(this);
             Directory = new SteamDirectoryRawEndpoint(this);
@@ -168,39 +157,34 @@ namespace Skybrud.Social.Steam.OAuth
             WebUserPresenceOAuth = new SteamWebUserPresenceOAuthRawEndpoint(this);
         }
 
+        /// <summary>
+        /// Initializes a new instance with the specified <paramref name="apiKey"/>.
+        /// </summary>
+        /// <param name="apiKey">The API key.</param>
+        public SteamHttpClient(string apiKey) : this() {
+            ApiKey = apiKey;
+        }
+
         #endregion
 
-        #region Methods
+        #region Member methods
 
-        // Need methods to set ClientId and AccessToken
-
-        // Need methods for authorization process
-
-        protected override void PrepareHttpRequest(SocialHttpRequest request)
-        {
-            // Append the http scheme if not already specified
-            if (request.Url.StartsWith("/"))
-            {
-                request.Url = "http://api.steampowered.com" + request.Url;
-            }
+        /// <summary>
+        /// Virtual method that can be used for configuring a request.
+        /// </summary>
+        /// <param name="request">The instance of <see cref="SocialHttpRequest"/> representing the request.</param>
+        protected override void PrepareHttpRequest(SocialHttpRequest request) {
             
-            // Append the client id to the query string if present in the client and not already
-            // specified in the query string
-            if (!request.QueryString.Keys.Contains("key"))
-            {
-                request.QueryString.Add("key", ClientId);
-            }
+            // Append the http scheme if not already specified
+            if (request.Url.StartsWith("/")) request.Url = "http://api.steampowered.com" + request.Url;
+            
+            // Append the API key to the query string if present and not already specified in the query string
+            if (!request.QueryString.Keys.Contains("key")) request.QueryString.Add("key", ApiKey);
 
-            // Don't think this needs to be done at all
-            // Append the access token to the headers if present in the client and not already
-            // specified in the headers
-            //if (!request.Headers.Keys.Contains("AccessToken"))
-            //{
-            //    request.Headers.Add("AccessToken", AccessToken);
-            //}
         }
 
         #endregion
         
     }
+
 }

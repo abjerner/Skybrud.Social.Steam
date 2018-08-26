@@ -1,6 +1,5 @@
 ﻿using System;
 using Skybrud.Social.Http;
-using Skybrud.Social.Steam.OAuth;
 using Skybrud.Social.Steam.Options.User;
 
 namespace Skybrud.Social.Steam.Endpoints.Raw
@@ -16,13 +15,13 @@ namespace Skybrud.Social.Steam.Endpoints.Raw
         /// <summary>
         /// Gets a reference to the OAuth client.
         /// </summary>
-        public SteamOAuthClient Client { get; }
+        public SteamHttpClient Client { get; }
 
         #endregion
 
         #region Constructors
 
-        internal SteamUserRawEndpoint(SteamOAuthClient client)
+        internal SteamUserRawEndpoint(SteamHttpClient client)
         {
             Client = client;
         }

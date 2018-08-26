@@ -1,21 +1,19 @@
 ﻿using System;
 using Skybrud.Social.Steam.Endpoints;
-using Skybrud.Social.Steam.OAuth;
 
-namespace Skybrud.Social.Steam
-{
+namespace Skybrud.Social.Steam {
+    
     /// <summary>
     /// Class working as an entry point to the Steam api.
     /// </summary>
-    public class SteamService
-    {
+    public class SteamService {
 
         #region Properties
 
         /// <summary>
-        /// Gets a reference to the underlying OAuth client.
+        /// Gets a reference to the underlying client.
         /// </summary>
-        public SteamOAuthClient Client { get; private set; }
+        public SteamHttpClient Client { get; private set; }
 
         /// <summary>
         /// Gets a reference to the account recovery endpoint.
@@ -126,8 +124,10 @@ namespace Skybrud.Social.Steam
 
         #region Constructors
 
-        private SteamService()
-        {
+        /// <summary>
+        /// Initializes a new instance with default options.
+        /// </summary>
+        public SteamService() {
             AccountRecovery = new SteamAccountRecoveryServiceEndpoint(this);
             Apps = new SteamAppsEndpoint(this);
             Directory = new SteamDirectoryEndpoint(this);
@@ -156,36 +156,23 @@ namespace Skybrud.Social.Steam
         #region Methods
 
         /// <summary>
-        /// Initialize a new service from the specified <code>accessToken</code>. Internally a new OAuth client will be initialized from the access token.
+        /// Initialize a new service from the specified <paramref name="apiKey"/>. Internally a new client will be initialized from the API key.
         /// </summary>
-        /// <param name="accessToken">The access token.</param>
-        /// <returns>Returns the created instance of <see cref="SteamService"/>.</returns>
-        public static SteamService CreateFromAccessToken(string accessToken)
-        {
-            return new SteamService
-            {
-                Client = new SteamOAuthClient
-                {
-                    AccessToken = accessToken
-                }
-            };
+        /// <param name="apiKey">The API key.</param>
+        /// <returns>The created instance of <see cref="SteamService"/>.</returns>
+        public static SteamService CreateFromApiKey(string apiKey) {
+            if (String.IsNullOrWhiteSpace(apiKey)) throw new ArgumentNullException(nameof(apiKey));
+            return new SteamService { Client = new SteamHttpClient(apiKey) };
         }
 
         /// <summary>
-        /// Initialize a new service instance from the specified OAuth <code>client</code>.
+        /// Initialize a new service from the specified<paramref name="client"/>.
         /// </summary>
         /// <param name="client">The OAuth client.</param>
-        /// <returns>Returns the created instance of <see cref="SteamService"/>.</returns>
-        public static SteamService CreateFromOAuthClient(SteamOAuthClient client)
-        {
-            // This should never be null
+        /// <returns>The created instance of <see cref="SteamService"/>.</returns>
+        public static SteamService CreateFromOAuthClient(SteamHttpClient client) {
             if (client == null) throw new ArgumentNullException(nameof(client));
-
-            // Initialize and return the service
-            return new SteamService
-            {
-                Client = client
-            };
+            return new SteamService { Client = client };
         }
 
         #endregion
